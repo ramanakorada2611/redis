@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .list {
+            list-style: none;
+            padding: 0;
+        }
+        .list li {
+            margin-bottom: 10px;
+        }
+        .del:checked + span {
+            color: red;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Task Manager</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#add-task">Add Task</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#edit-call">Edit Call</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="text-center mb-4"><%= title %></h1>
+
+        <!-- Add Task Form -->
+        <section id="add-task">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3>Add Task</h3>
+                    <form method="post" action="/task/add" class="row g-3">
+                        <div class="col-md-8">
+                            <input type="text" name="textName" class="form-control" placeholder="Enter task" required>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary w-100">Add Task</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Task List -->
+        <section>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3>Task List</h3>
+                    <form method="post" action="/task/delete">
+                        <ul class="list">
+                            <% tasks.forEach((data) => { %>
+                                <li class="d-flex align-items-center">
+                                    <input type="checkbox" name="task" class="form-check-input del me-2" value="<%= data %>">
+                                    <span><%= data %></span>
+                                </li>
+                            <% }) %>
+                        </ul>
+                        <button type="submit" class="btn btn-danger mt-3">Remove Selected</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Business Call -->
+        <section id="business-call">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3>Next Business Call</h3>
+                    <p><strong>Name:</strong> <%= call.name %></p>
+                    <p><strong>Company:</strong> <%= call.company %></p>
+                    <p><strong>Phone:</strong> <%= call.phone %></p>
+                    <p><strong>Date & Time:</strong> <%= call.time %></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Edit Next Call -->
+        <section id="edit-call">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3>Edit Next Call</h3>
+                    <form method="post" action="/call/add">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Contact Name</label>
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Contact Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="company" class="form-label">Company</label>
+                            <input type="text" name="company" id="company" class="form-control" placeholder="Company" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="time" class="form-label">Date & Time</label>
+                            <input type="text" name="time" id="time" class="form-control" placeholder="Date & Time" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
